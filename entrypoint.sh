@@ -9,7 +9,7 @@ set -o pipefail
 
 shopt -s extglob globstar nullglob dotglob
 
-SKIP_SRC_CLONE=$INPUT_SKIP_SRC_CLONE
+SKIP_SRC_CLONE="$INPUT_SKIP_SRC_CLONE"
 PERSONAL_TOKEN="$INPUT_PERSONAL_TOKEN"
 SRC_PATH="$INPUT_SRC_PATH"
 DST_PATH="$INPUT_DST_PATH"
@@ -84,7 +84,7 @@ else
     echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
 fi
 
-if [ $SKIP_SRC_CLONE -ne true ]; then
+if [ "$SKIP_SRC_CLONE" = "false" ]; then
     git clone --branch ${SRC_BRANCH} --single-branch --depth 1 https://${PERSONAL_TOKEN}@github.com/${SRC_REPO}.git
     if [ "$?" -ne 0 ]; then
         echo >&2 "Cloning '$SRC_REPO' failed"
