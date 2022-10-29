@@ -123,7 +123,13 @@ if [[ -n "$FILTER" ]]; then
             [[ "$f" == $EXCLUDE ]] && continue
         fi
         file_dir=$(dirname "${f}")
-        mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
+        
+        if [ "$SKIP_SRC_CLONE" = "false" ]; then
+            mkdir -p "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}" && cp "${f}" "${tmp_dir}/${SRC_REPO_NAME}/${file_dir}"
+        else
+            mkdir -p "${tmp_dir}/${file_dir}" && cp "${f}" "${tmp_dir}/${file_dir}"
+        fi
+        
     done
     IFS=$SAVEIFS
     cd ..
