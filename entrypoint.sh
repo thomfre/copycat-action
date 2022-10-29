@@ -78,10 +78,18 @@ FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
 
-if [[ -z "$FILE_FILTER" ]]; then
-    echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+if [ "$SKIP_SRC_CLONE" = "false" ]; then
+    if [[ -z "$FILE_FILTER" ]]; then
+        echo "Copying \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+    else
+        echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+    fi
 else
-    echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_REPO_NAME}/${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+    if [[ -z "$FILE_FILTER" ]]; then
+        echo "Copying \"${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+    else
+        echo "Copying files matching \"${FILE_FILTER}\" from \"${SRC_PATH}\" and pushing it to ${DST_OWNER}/${DST_REPO_NAME}"
+    fi
 fi
 
 if [ "$SKIP_SRC_CLONE" = "false" ]; then
