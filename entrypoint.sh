@@ -101,7 +101,11 @@ if [[ -n "$FILTER" ]]; then
     tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     mkdir ${temp_dir}/${SRC_REPO_NAME}
     cd ${SRC_REPO_NAME}
-    FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
+    if [ "$SKIP_SRC_CLONE" = "false" ]; then
+        FINAL_SOURCE="${tmp_dir}/${SRC_REPO_NAME}/${SRC_PATH}"
+    else
+        FINAL_SOURCE="${tmp_dir}/${SRC_PATH}"
+    fi
     SAVEIFS=$IFS
     IFS=$(echo -en "\n\b")
     for f in ${FILTER} ; do
