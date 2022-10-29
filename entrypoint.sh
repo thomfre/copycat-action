@@ -73,7 +73,11 @@ DST_REPO="${DST_OWNER}/${DST_REPO_NAME}${DST_WIKI}"
 DST_REPO_NAME="${DST_REPO_NAME}${DST_WIKI}"
 
 DST_REPO_DIR=dst_repo_dir
-FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
+if [ "$SKIP_SRC_CLONE" = "false" ]; then
+    FINAL_SOURCE="${SRC_REPO_NAME}/${SRC_PATH}"
+else
+    FINAL_SOURCE="${SRC_PATH}"
+fi
 
 git config --global user.name "${USERNAME}"
 git config --global user.email "${EMAIL}"
