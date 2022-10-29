@@ -5,6 +5,10 @@ branding:
   icon: 'copy'
   color: 'red'
 inputs:
+  skip_src_clone:
+    description: Don't run initial source repo clone
+    required: false
+    default: false
   personal_token:
     description: 'Personal access token'
     required: true
@@ -62,6 +66,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - ${{ inputs.skip_src_clone }}
     - ${{ inputs.personal_token }}
     - ${{ inputs.src_path }}
     - ${{ inputs.dst_path }}
